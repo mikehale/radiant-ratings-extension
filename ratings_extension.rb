@@ -4,8 +4,7 @@ class RatingsExtension < Radiant::Extension
   url "http://terralien.com/"
   
   define_routes do |map|
-    map.connect 'ratings/rate/:page_id/:rating', :controller => 'ratings', :action => 'rate'
-    map.connect 'ratings/rating/:page_id', :controller => 'ratings', :action => 'rating'
+    map.resources :ratings, :path_prefix => "/pages/:page_id"
   end
   
   def activate
@@ -20,9 +19,9 @@ class RatingsExtension < Radiant::Extension
       end
       
       def add_rating(rating, rating_user_token)
-        r = Rating.find(:first, :conditions => { :page_id => self.id, :user_token => rating_user_token })
-        r = Rating.new(:page => self, :user_token => rating_user_token) unless r
-        r.update_attributes(:rating => rating)
+        r = Rating.find_or_initialize_by_page_id_and_user_token(self.id, rating_user_token)
+        r.rating = rating
+        r.save!
       end
     end
   end
