@@ -1,11 +1,7 @@
 class RatingsController < ApplicationController
   no_login_required
   skip_before_filter :verify_authenticity_token
-  
-  def index
-    render :text => %(#{page.average_rating})
-  end
-  
+    
   def create
     page.add_rating(params[:rating], rating_user_token)
     respond_to do |format|
