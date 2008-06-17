@@ -19,6 +19,7 @@ class RatingsExtension < Radiant::Extension
         r.save!
         
         update_average_rating
+        ResponseCache.instance.expire_response(url) 
       end
       
       def update_average_rating
