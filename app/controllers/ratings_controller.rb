@@ -5,7 +5,7 @@ class RatingsController < ApplicationController
   def create
     page.add_rating(params[:rating], rating_user_token)
     respond_to do |format|
-      format.js {render :text => page.average_rating}
+      format.js {render :json => {:average => page.average_rating, :votes => page.ratings.count}}.to_json
       format.html {redirect_to page.url}
     end
   end
