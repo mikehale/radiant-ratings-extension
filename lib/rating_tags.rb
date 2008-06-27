@@ -4,9 +4,7 @@ module RatingTags
   tag 'rating' do |tag|
     tag.locals.rating = tag.locals.page.average_rating
     tag.locals.max_points = (tag.attr["max"] || 5).to_i
-    %(<div id="rating">
-      #{tag.expand}
-    </div>)
+    tag.expand
   end
   
   tag 'rating:average' do |tag|
@@ -15,6 +13,10 @@ module RatingTags
     else
       tag.locals.rating
     end
+  end
+  
+  tag 'rating:votes' do |tag|
+    tag.locals.page.ratings.count.to_s
   end
   
   tag 'rating:form' do |tag|
