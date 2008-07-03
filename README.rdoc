@@ -1,0 +1,33 @@
+= Ratings
+ 
+ Allows you to rate pages
+ 
+== Installation
+
+  $ cd <radiant_app>/vendor/extensions/
+  $ git clone <ratings_git_url> email_page
+
+==Usage
+
+Add this content to your page (or maybe someplace like your footer snippet):
+  <r:rating>
+    <p>Current rating: <r:average /></p>
+
+    <r:form>
+      <div>
+        <r:points:each>
+          <input type="submit" name="rating" value="<r:point_value />" />
+        </r:points:each>
+      </div>
+    </r:form>
+  </r:rating>
+
+== Home
+
+  http://github.com/mikehale/radiant-ratings-extension/tree/master
+
+== Credits
+
+Sponsored by Ignite Social Media LLC - http://ignitesocialmedia.com/
+
+See LICENSE for copyright and licensing details.
