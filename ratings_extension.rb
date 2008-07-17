@@ -23,11 +23,22 @@ class RatingsExtension < Radiant::Extension
       end
       
       def update_average_rating
-        avg = Rating.average(:rating, :conditions => "page_id = #{id}")
-        self.average_rating = avg ? avg.round(2) : BigDecimal('0')
-        self.save!        
+        set_average_rating
+        begin
+          self.save!
+        rescue ActiveRecord::StaleObjectError => e
+          self.reload
+          set_average_rating
+          self.save!
+        end
       end
       
+      protected
+      
+        def set_average_rating
+          avg = Rating.average(:rating, :conditions => "page_id = #{id}")
+          self.average_rating = avg ? avg.round(2) : BigDecimal('0')
+        end
     end
   end
   
