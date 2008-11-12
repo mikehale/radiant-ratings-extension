@@ -22,6 +22,18 @@ Add this content to your page (or maybe someplace like your footer snippet):
     </r:form>
   </r:rating>
 
+You can also display different options depending on the point value and the page rating:
+
+        <r:points:each>
+          <r:if_average_greater>
+            <input type="image" src="/images/red_star.png" name="rating" value="<r:point_value />" />
+          </r:if_average_greater>
+          <r:if_average_less>
+            <input type="image" src="/images/grey_star.png" name="rating" value="<r:point_value />" />
+          </r:if_average_less>
+        </r:points:each>
+
+
 == Home
 
   http://github.com/mikehale/radiant-ratings-extension/tree/master
@@ -29,5 +41,6 @@ Add this content to your page (or maybe someplace like your footer snippet):
 == Credits
 
 Sponsored by Ignite Social Media LLC - http://ignitesocialmedia.com/
+Further development by Saturn Flyer http://www.saturnflyer.com
 
 See LICENSE for copyright and licensing details.
