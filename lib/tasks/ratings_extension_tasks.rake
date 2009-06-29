@@ -1,7 +1,7 @@
 namespace :radiant do
   namespace :extensions do
     namespace :ratings do
-      
+
       desc "Runs the migration of the Ratings extension"
       task :migrate => :environment do
         require 'radiant/extension_migrator'
@@ -11,7 +11,7 @@ namespace :radiant do
           RatingsExtension.migrator.migrate
         end
       end
-      
+
     end
   end
 end

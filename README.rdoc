@@ -1,7 +1,7 @@
 = Ratings
- 
+
  Allows you to rate pages
- 
+
 == Installation
 
   $ cd <radiant_app>/vendor/extensions/

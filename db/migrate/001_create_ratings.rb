@@ -5,7 +5,7 @@ class CreateRatings < ActiveRecord::Migration
       t.column :page_id,    :integer, :null => false
       t.column :user_token, :string,  :null => false
     end
-    
+
     add_index :ratings, :user_token
   end
 
