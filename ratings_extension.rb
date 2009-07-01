@@ -19,7 +19,7 @@ class RatingsExtension < Radiant::Extension
         r.save!
 
         update_average_rating
-        clear_cache
+        Radiant::Cache.clear
       end
 
       def update_average_rating

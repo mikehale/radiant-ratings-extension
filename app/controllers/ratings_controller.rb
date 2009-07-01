@@ -23,5 +23,5 @@ class RatingsController < ApplicationController
   def page
     Page.find(params[:page_id])
   end
-
+  
 end
