@@ -11,6 +11,9 @@ namespace :radiant do
           RatingsExtension.migrator.migrate
         end
       end
+      
+      task :update do
+      end
 
     end
   end
