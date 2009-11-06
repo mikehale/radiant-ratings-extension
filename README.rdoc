@@ -5,7 +5,7 @@
 == Installation
 
   $ cd <radiant_app>/vendor/extensions/
-  $ git clone <ratings_git_url> email_page
+  $ git clone git://github.com/mikehale/radiant-ratings-extension.git ratings
 
 ==Usage
 
