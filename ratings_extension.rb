@@ -4,7 +4,7 @@ class RatingsExtension < Radiant::Extension
   url "http://terralien.com/"
 
   define_routes do |map|
-    map.resources :ratings, :path_prefix => "/pages/:page_id"
+    map.resources :ratings, :only => [:create], :path_prefix => "/pages/:page_id"
   end
 
   def activate
