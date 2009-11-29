@@ -6,7 +6,7 @@ class CreateRatings < ActiveRecord::Migration
       t.column :user_token, :string,  :null => false
     end
 
-    add_index :ratings, :user_token
+    add_index :ratings, [:user_token, :page_id], :unique => true
   end
 
   def self.down
