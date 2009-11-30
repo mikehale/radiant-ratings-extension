@@ -12,6 +12,10 @@ describe RatingTags do
       super("<r:rating#{%( max="#{options[:rating_max]}") if options[:rating_max]}>#{input}</r:rating>")
     end
 
+    should_calculate_rating_image_width('<r:image_width />') do
+      @page.should render('<r:image_width />').as(@expected_width.to_s)
+    end
+
     describe '<r:average />' do
       before(:each) do
         @page.should_receive(:average_rating).at_least(:once).and_return(4.2)
@@ -26,14 +30,13 @@ describe RatingTags do
       end
     end
 
-    describe '<r:votes />' do
-      before(:each) do
-        ratings = mock('ratings')
-        ratings.should_receive(:count).and_return(7)
-        @page.should_receive(:ratings).and_return(ratings)
-      end
+    should_render_vote_description('<r:vote_description />') do
+      @page.should render('<r:vote_description />').as(@expected_description.to_s)
+    end
 
+    describe '<r:votes />' do
       it "should render the number of rating votes for this page" do
+        mock_rating_count(7)
         @page.should render('<r:votes />').as('7')
       end
     end

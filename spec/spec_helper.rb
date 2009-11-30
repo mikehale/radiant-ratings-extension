@@ -19,7 +19,11 @@ if File.directory?(File.dirname(__FILE__) + "/matchers")
   Dir[File.dirname(__FILE__) + "/matchers/*.rb"].each {|file| require file }
 end
 
+Dir[File.dirname(__FILE__) + "/support/*.rb"].each {|file| require file }
+
 Spec::Runner.configure do |config|
+  config.include RatingSupport
+
   # config.use_transactional_fixtures = true
   # config.use_instantiated_fixtures  = false
   # config.fixture_path = RAILS_ROOT + '/spec/fixtures'

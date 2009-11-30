@@ -1,5 +1,6 @@
 module RatingTags
   include Radiant::Taggable
+  include RatingsHelper
 
   tag 'rating' do |tag|
     tag.locals.rating = tag.locals.page.average_rating
@@ -15,8 +16,16 @@ module RatingTags
     end
   end
 
+  tag 'rating:image_width' do |tag|
+    rating_image_width(tag.locals.page)
+  end
+
   tag 'rating:votes' do |tag|
     tag.locals.page.ratings.count.to_s
+  end
+
+  tag 'rating:vote_description' do |tag|
+    vote_description(tag.locals.page)
   end
 
   tag 'rating:form' do |tag|
