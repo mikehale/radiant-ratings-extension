@@ -5,8 +5,8 @@ class RatingsController < ApplicationController
   def create
     page.add_rating(params[:rating], rating_user_token)
     respond_to do |format|
-      format.js {render :json => {:average => page.average_rating, :votes => page.ratings.count}}
-      format.html {redirect_to page.url}
+      format.html { redirect_to page.url }
+      format.js   { render :json => { :average => page.average_rating, :votes => page.ratings.count } }
     end
   end
 
@@ -21,7 +21,7 @@ class RatingsController < ApplicationController
   end
 
   def page
-    Page.find(params[:page_id])
+    @page ||= Page.find(params[:page_id])
   end
   
 end
