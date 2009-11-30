@@ -19,6 +19,9 @@ namespace :radiant do
       end
 
       namespace :update do
+        desc "Update assets and snippets for the ratings extension."
+        task :all => [:environment, :config, :assets, :snippets]
+
         desc "Updates the rating configuration settings for the ratings extension to the latest defaults"
         task :config => :environment do
           if Radiant::Config.table_exists?
@@ -33,9 +36,37 @@ namespace :radiant do
             puts "The radiant config table does not exist.  Please create it, then re-run this migration."
           end
         end
+
+        desc "Copies public assets of the ratings extension to the instance public/ directory."
+        task :assets => :environment do
+          puts "Copying assets for the ratings extension..."
+          Dir[RatingsExtension.root + "/public/**/*"].each do |file|
+            next if File.directory?(file)
+
+            path = file.sub(RatingsExtension.root, '')
+            directory = File.dirname(path)
+            mkdir_p RAILS_ROOT + directory, :verbose => false
+            cp file, RAILS_ROOT + path, :verbose => false
+            puts "  - #{path}"
+          end
+        end
+
+        desc "Creates or updates the default snippets used by the ratings extension"
+        task :snippets => :environment do
+          puts "Updating snippets for the ratings extension..."
+          get_yaml('snippets.yml').each do |snippet_name, snippet_content|
+            s = Snippet.find_or_initialize_by_name(snippet_name)
+            s.content = snippet_content
+            s.save!
+            puts "  - #{snippet_name}"
+          end
+        end
       end
 
       namespace :delete do
+        desc "Deletes the assets and snippets installed by the ratings extension."
+        task :all => [:environment, :config, :assets, :snippets]
+
         desc "Deletes the radiant configuration settings added by the ratings extension"
         task :config => :environment do
           if Radiant::Config.table_exists?
@@ -45,6 +76,30 @@ namespace :radiant do
                 c.destroy
                 puts "  - ratings.#{key} = #{value}"
               end
+            end
+          end
+        end
+
+        desc "Deletes the public assets installed by the ratings extension."
+        task :assets => :environment do
+          puts "Deleting assets installed by the ratings extension..."
+          Dir[RatingsExtension.root + "/public/**/*"].each do |file|
+            next if File.directory?(file)
+            path = file.sub(RatingsExtension.root, '')
+            if File.exists?(RAILS_ROOT + path)
+              rm RAILS_ROOT + path, :verbose => false
+              puts "  - #{path}"
+            end
+          end
+        end
+
+        desc "Deletes the snippets created as part of the ratings installation"
+        task :snippets => :environment do
+          puts "Deleting snippets installed by the ratings extension..."
+          get_yaml('snippets.yml').each do |snippet_name, snippet_content|
+            if s = Snippet.find_by_name(snippet_name)
+              s.destroy
+              puts "  - #{snippet_name}"
             end
           end
         end

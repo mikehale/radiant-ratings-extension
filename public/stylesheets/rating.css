@@ -1,0 +1,87 @@
+/* This is a modified version of http://swik.net/Rails/Dave+Naffis+-+Rails,+Ruby,+Randomness/Ruby+on+Rails,+Ajax+&+CSS+Star+Rating+System/kqn0 */
+#rating_container ol{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+  width: 150px;
+  height: 30px;
+  position: relative;
+  background: url(/images/star_rating.gif) top left repeat-x;
+}
+
+#rating_container li{
+  padding: 0px;
+  margin: 0px;
+  /*\*/
+  float: left;
+  /* */
+}
+
+#rating_container .current_rating{
+  background: url(/images/star_rating.gif) left bottom;
+  position: absolute;
+  height: 30px;
+  display: block;
+  text-indent: -9000px;
+  z-index: 1;
+}
+
+#rating_container button{
+  display: block;
+  width: 30px;
+  height: 30px;
+  text-decoration: none;
+  text-indent: -9000px;
+  z-index: 20;
+  position: absolute;
+  padding: 0px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#rating_container button::-moz-focus-inner{
+  border: 0;
+}
+
+#rating_container button:hover{
+  background: url(/images/star_rating.gif) left center;
+  z-index: 2;
+  left: 0px;
+  border: none;
+}
+
+#rating_container  button.star1{
+  left: 0px;
+}
+#rating_container  button.star1:hover{
+  width: 30px;
+}
+#rating_container  button.star2{
+  left: 30px;
+}
+#rating_container  button.star2:hover{
+  left: 0px;
+  width: 60px;
+}
+#rating_container  button.star3{
+  left: 60px;
+}
+#rating_container  button.star3:hover{
+  left: 0px;
+  width: 90px;
+}
+#rating_container  button.star4{
+  left: 90px;
+}
+#rating_container  button.star4:hover{
+  left: 0px;
+  width: 120px;
+}
+#rating_container  button.star5{
+  left: 120px;
+}
+#rating_container  button.star5:hover{
+left: 0px;
+width: 150px;
+}
