@@ -7,6 +7,25 @@ describe RatingsController do
     { :page_id => pages(:home).id, :rating => 3 }.merge(attr)
   end
 
+  def self.should_render_the_correct_response(format)
+    if format == 'html'
+      it "should redirect to the page being rated" do
+        response.should redirect_to(pages(:home).url)
+      end
+    else
+      it { should respond_with(:success) }
+
+      it "should respond with json containing the page rating data" do
+        ActiveSupport::JSON.decode(response.body).should == {
+          'average'          => 3.0,
+          'votes'            => 1,
+          'vote_description' => '1 vote',
+          'image_width'      => 90
+        }
+      end
+    end
+  end
+
   %w(html js).each do |format|
     context 'when there are no ratings' do
       before(:each) do
@@ -18,20 +37,7 @@ describe RatingsController do
           post :create, attributes(:format => format)
         end
 
-        if format == 'html'
-          it "should redirect to the page being rated" do
-            response.should redirect_to(pages(:home).url)
-          end
-        else
-          it { should respond_with(:success) }
-
-          it "should respond with json containing the page rating data" do
-            ActiveSupport::JSON.decode(response.body).should == {
-              'average' => 3.0,
-              'votes'   => 1,
-            }
-          end
-        end
+        should_render_the_correct_response(format)
 
         it "should create a rating" do
           Rating.count.should == 1
@@ -64,20 +70,7 @@ describe RatingsController do
           post :create, attributes(:format => format)
         end
 
-        if format == 'html'
-          it "should redirect to the page being rated" do
-            response.should redirect_to(pages(:home).url)
-          end
-        else
-          it { should respond_with(:success) }
-
-          it "should respond with json containing the page rating data" do
-            ActiveSupport::JSON.decode(response.body).should == {
-              'average' => 3.0,
-              'votes'   => 1,
-            }
-          end
-        end
+        should_render_the_correct_response(format)
 
         it "should update the rating" do
           @rating.reload.rating.should == 3
