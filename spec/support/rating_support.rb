@@ -42,7 +42,7 @@ module RatingSupport
         context 'with no configuration' do
           with_config('image_width' => nil, 'image_padding' => nil)
 
-          { 4 => 120, 5 => 150, 2.2 => 69, 4.7 => 138 }.each do |rating, width|
+          { 4 => 120, 5 => 150, 2.2 => 70, 4.7 => 138 }.each do |rating, width|
             it "should return #{width} when the rating is #{rating}" do
               @expected_width = width
               @page = pages(:home)
