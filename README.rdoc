@@ -9,7 +9,7 @@ Allows your users to rate pages.  Features:
 == Installation
 
   $ cd <radiant_app>/vendor/extensions/
-  $ git clone git://github.com/myronmarston/radiant-ratings-extension.git ratings
+  $ git clone git://github.com/mikehale/radiant-ratings-extension.git ratings
   $ cd ../..
   $ rake radiant:extensions:ratings:install
 
@@ -57,7 +57,7 @@ In your snippet, you can also display different options depending on the point v
 
 == Home
 
-http://github.com/myronmarston/radiant-ratings-extension/tree/master
+http://github.com/mikehale/radiant-ratings-extension/tree/master
 
 == Credits
 
